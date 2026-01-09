@@ -25,24 +25,14 @@ function createWindow() {
     }
   });
 
-  // Resolve absolute path to index.html
-  const screenfilepath = path.resolve(__dirname, 'my-app/build/index.html');
-  const svkmscreenfilepath = path.resolve(__dirname, 'ExcelAssess.OfflinePrintExams.UI-main/build/index.html');
-  const startUrl = pathToFileURL(screenfilepath).toString();
-    //const printurl = "https://ecw.excelindia.com/svkmprinttest/PrintDashboard";
+  mainWindow.webContents.openDevTools();
 
-  const sampleHtml = `
-    <html>
-      <head><title>Sample App</title></head>
-      <body>
-        <h1>Welcome to Sample App</h1>
-        <p>This is sample text content instead of loading an external URL.</p>
-      </body>
-    </html>
-  `;
+  // Load the local HTML file
+  const indexPath = path.resolve(__dirname, 'index.html');
+  const indexUrl = pathToFileURL(indexPath).toString();
   
-  mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(sampleHtml));
-  //mainWindow.loadURL(printurl);
+  mainWindow.loadURL(indexUrl);
+
   // Check for updates after window loads
   mainWindow.webContents.once('did-finish-load', () => {
     // Check for updates 5 seconds after app starts
