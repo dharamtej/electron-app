@@ -1,6 +1,6 @@
 {
   "name": "test1",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,12 +28,8 @@
       }
     ],
     "win": {
-      "target": [{
-        "target": "nsis",
-        "arch": ["x64"]
-      }],
-      "icon": "build/icon.ico",
-      "artifactName": "${productName}-Setup-${version}.${ext}"
+      "target": ["nsis"],
+      "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
