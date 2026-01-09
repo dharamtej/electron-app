@@ -2,24 +2,25 @@
   "name": "test1",
   "version": "1.0.7",
   "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "build": "electron-builder",
-    "publish": "electron-builder --publish=always",
-    "dist": "electron-builder --publish=never"
-  },
-  "keywords": [],
+  "description": "Test1 Electron Application",
   "author": "",
   "license": "ISC",
-  "description": "Test1 Electron Application",
+
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish=never",
+    "publish": "electron-builder --publish=always"
+  },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/dharamtej/electron-app.git"
   },
+
   "build": {
     "appId": "com.quesmatrix.test",
     "productName": "Test1 App",
+
     "publish": [
       {
         "provider": "github",
@@ -27,39 +28,39 @@
         "repo": "electron-app"
       }
     ],
-    "win": {
-      "target": [{
-        "target": "nsis",
-        "arch": ["x64"]
-      }],
-      "icon": "build/icon.ico",
-      "artifactName": "${productName}-Setup-${version}.${ext}"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "differentialPackage": false
-    },
+
     "compression": "store",
+
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-${version}.exe"
+    },
+
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": ["zip"],
       "category": "public.app-category.utilities",
       "icon": "build/icon.icns"
     },
+
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": ["AppImage"],
       "category": "Utility",
       "icon": "build/icon.png"
     }
   },
-  "devDependencies": {
-    "@types/electron": "^1.4.38",
-    "electron": "^39.2.7",
-    "electron-builder": "^26.4.0"
-  },
+
   "dependencies": {
     "electron-updater": "^6.3.9"
+  },
+
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.4.0"
   }
 }
