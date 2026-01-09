@@ -140,11 +140,19 @@ function sendStatusToWindow(text) {
 
 // Function to manually check for updates
 function checkForUpdates() {
-  if (process.env.NODE_ENV === 'development') {
+  // Skip updates in development
+  if (process.env.NODE_ENV === 'development' || !app.isPackaged) {
     console.log('Skipping update check in development mode');
+    sendStatusToWindow('Development mode - updates disabled');
     return;
   }
-  autoUpdater.checkForUpdates();
+  
+  try {
+    autoUpdater.checkForUpdates();
+  } catch (error) {
+    console.error('Failed to check for updates:', error);
+    sendStatusToWindow('Failed to check for updates');
+  }
 }
 
 // IPC Handlers
