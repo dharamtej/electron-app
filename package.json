@@ -28,8 +28,12 @@
       }
     ],
     "win": {
-      "target": ["nsis"],
-      "icon": "build/icon.ico"
+      "target": [{
+        "target": "nsis",
+        "arch": ["x64"]
+      }],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
