@@ -25,8 +25,6 @@ function createWindow() {
     }
   });
 
-  mainWindow.webContents.openDevTools();
-
   // Resolve absolute path to index.html
   const screenfilepath = path.resolve(__dirname, 'my-app/build/index.html');
   const svkmscreenfilepath = path.resolve(__dirname, 'ExcelAssess.OfflinePrintExams.UI-main/build/index.html');
