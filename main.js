@@ -10,6 +10,14 @@ let mainWindow;
 // Configure auto-updater
 autoUpdater.autoDownload = false; // Don't auto-download, ask user first
 autoUpdater.autoInstallOnAppQuit = true;
+autoUpdater.allowDowngrade = true;
+autoUpdater.allowPrerelease = false;
+autoUpdater.logger = console;
+
+// Force update configuration for unsigned builds
+if (process.platform === 'win32') {
+  autoUpdater.forceDevUpdateConfig = true;
+}
 
 function createWindow() {
   console.log("Preload path:", preloadPath);
@@ -80,7 +88,12 @@ autoUpdater.on('update-not-available', (info) => {
 
 autoUpdater.on('error', (err) => {
   console.error('Update error:', err);
-  sendStatusToWindow('Error checking for updates: ' + err.message);
+  console.error('Error stack:', err.stack);
+  sendStatusToWindow('Update error: ' + err.message);
+  
+  // Show error dialog to user
+  dialog.showErrorBox('Update Error', 
+    `Failed to update: ${err.message}\n\nTry running as administrator or check antivirus settings.`);
 });
 
 autoUpdater.on('download-progress', (progressObj) => {
@@ -99,20 +112,25 @@ autoUpdater.on('download-progress', (progressObj) => {
 
 autoUpdater.on('update-downloaded', (info) => {
   console.log('Update downloaded:', info);
+  console.log('Update file path:', info.downloadedFile || 'Unknown');
   
   // Show dialog to install now or later
   dialog.showMessageBox(mainWindow, {
     type: 'info',
     title: 'Update Ready',
     message: 'Update has been downloaded.',
-    detail: 'The application will restart to install the update.',
+    detail: 'The application will restart to install the update. Make sure to run as administrator if needed.',
     buttons: ['Restart Now', 'Restart Later'],
     defaultId: 0,
     cancelId: 1
   }).then((result) => {
     if (result.response === 0) {
       // User clicked "Restart Now"
-      setImmediate(() => autoUpdater.quitAndInstall());
+      console.log('User chose to restart now');
+      setImmediate(() => {
+        console.log('Calling quitAndInstall...');
+        autoUpdater.quitAndInstall(false, true);
+      });
     }
   });
 });
