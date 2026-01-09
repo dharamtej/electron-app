@@ -12,7 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Test",
   "repository": {
     "type": "git",
     "url": "https://github.com/dharamtej/electron-app.git"
@@ -21,11 +21,16 @@
     "appId": "com.quesmatrix.test",
     "productName": "Test1 App",
     "compression": "store",
+    "directories": {
+      "output": "D:/dist"
+    },
     "files": [
       "main.js",
       "preload.js",
       "package.json",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "!my-app/**/*",
+      "!ExcelAssess.OfflinePrintExams.UI-main/**/*"
     ],
     "publish": [
       {
