@@ -3,13 +3,12 @@
   "version": "1.0.7",
   "main": "main.js",
   "description": "Test1 Electron Application",
-  "author": "",
   "license": "ISC",
 
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --publish=never",
-    "publish": "electron-builder --publish=always"
+    "dist": "electron-builder --win portable --publish=never",
+    "publish": "electron-builder --win portable --publish=always"
   },
 
   "repository": {
@@ -42,16 +41,14 @@
       "artifactName": "${productName}-${version}.exe"
     },
 
+    "nsis": null,
+
     "mac": {
-      "target": ["zip"],
-      "category": "public.app-category.utilities",
-      "icon": "build/icon.icns"
+      "target": ["zip"]
     },
 
     "linux": {
-      "target": ["AppImage"],
-      "category": "Utility",
-      "icon": "build/icon.png"
+      "target": ["AppImage"]
     }
   },
 
