@@ -14,11 +14,6 @@ autoUpdater.allowDowngrade = true;
 autoUpdater.allowPrerelease = false;
 autoUpdater.logger = console;
 
-// Force update configuration for unsigned builds
-if (process.platform === 'win32') {
-  autoUpdater.forceDevUpdateConfig = true;
-}
-
 function createWindow() {
   console.log("Preload path:", preloadPath);
   console.log("Exists:", fs.existsSync(preloadPath));
